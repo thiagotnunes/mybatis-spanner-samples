@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.sample.mappers;
+package com.google.sample.annotation.mappers;
 
 import java.sql.Timestamp;
 import org.apache.ibatis.annotations.Select;

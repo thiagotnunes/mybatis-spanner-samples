@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.sample.mappers;
+package com.google.sample.annotation.mappers;
 
 import com.google.sample.models.Singer;
 import java.util.List;

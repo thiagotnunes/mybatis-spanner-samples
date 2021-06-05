@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.google.sample.samples;
+package com.google.sample.annotation.samples;
 
-import com.google.sample.mappers.SingerMapper;
-import com.google.sample.mappers.TransactionMapper;
+import com.google.sample.annotation.mappers.SingerMapper;
+import com.google.sample.annotation.mappers.TransactionMapper;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;

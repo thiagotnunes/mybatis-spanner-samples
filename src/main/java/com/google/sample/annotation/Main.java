@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.google.sample;
+package com.google.sample.annotation;
 
-import com.google.sample.mappers.SingerMapper;
-import com.google.sample.mappers.TransactionMapper;
-import com.google.sample.samples.ReadOnlyTransactionExample;
-import com.google.sample.samples.ReadWriteTransactionExample;
-import com.google.sample.samples.StaleReadOnlyTransactionExample;
+import com.google.sample.annotation.mappers.SingerMapper;
+import com.google.sample.annotation.mappers.TransactionMapper;
+import com.google.sample.annotation.samples.ReadOnlyTransactionExample;
+import com.google.sample.annotation.samples.ReadWriteTransactionExample;
+import com.google.sample.annotation.samples.StaleReadOnlyTransactionExample;
 import java.sql.SQLException;
 import javax.sql.DataSource;
 import org.apache.ibatis.mapping.Environment;
@@ -58,13 +58,32 @@ public class Main {
     configuration.addMapper(TransactionMapper.class);
     final SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(configuration);
 
-    // TODO: Uncomment one of the examples below to run
-    // StaleReadOnlyTransactionExample.run(sqlSessionFactory);
-    // StaleReadOnlyTransactionExample.runWithJdbcConnection(sqlSessionFactory);
-    // ReadOnlyTransactionExample.run(sqlSessionFactory);
-    // ReadOnlyTransactionExample.runWithJdbcConnection(sqlSessionFactory);
-    // ReadWriteTransactionExample.run(sqlSessionFactory);
-    // ReadWriteTransactionExample.runWithJdbcConnection(sqlSessionFactory);
+    run(args[0], sqlSessionFactory);
+  }
+
+  private static void run(String example, SqlSessionFactory sqlSessionFactory) throws SQLException {
+    switch (example) {
+      case "stale-read-only":
+        StaleReadOnlyTransactionExample.run(sqlSessionFactory);
+        break;
+      case "stale-read-only-jdbc":
+        StaleReadOnlyTransactionExample.runWithJdbcConnection(sqlSessionFactory);
+        break;
+      case "read-only":
+        ReadOnlyTransactionExample.run(sqlSessionFactory);
+        break;
+      case "read-only-jdbc":
+        ReadOnlyTransactionExample.runWithJdbcConnection(sqlSessionFactory);
+        break;
+      case "read-write":
+        ReadWriteTransactionExample.run(sqlSessionFactory);
+        break;
+      case "read-write-jdbc":
+        ReadWriteTransactionExample.runWithJdbcConnection(sqlSessionFactory);
+        break;
+      default:
+        throw new IllegalArgumentException("Unknown example " + example);
+    }
   }
 
 }

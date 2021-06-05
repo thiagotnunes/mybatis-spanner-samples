@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.google.sample.samples;
+package com.google.sample.annotation.samples;
 
-import com.google.sample.mappers.SingerMapper;
-import com.google.sample.mappers.TransactionMapper;
+import com.google.sample.annotation.mappers.SingerMapper;
+import com.google.sample.annotation.mappers.TransactionMapper;
 import com.google.sample.models.Singer;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -28,22 +28,18 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
-public class StaleReadOnlyTransactionExample {
+public class ReadOnlyTransactionExample {
 
   /**
-   * Executes a stale read (max staleness configured as 10 seconds).
-   * Uses the {@link TransactionMapper} to set read only transaction mode.
-   * Prints out the read timestamp used.
+   * Executes a read only transaction. Uses the {@link TransactionMapper} to set read only
+   * transaction mode. Prints out the read timestamp used.
    */
-  public static void run(SqlSessionFactory sqlSessionFactory) throws SQLException {
+  public static void run(SqlSessionFactory sqlSessionFactory) {
     try (SqlSession session = sqlSessionFactory.openSession()) {
       final TransactionMapper transactionMapper = session.getMapper(TransactionMapper.class);
       final SingerMapper singerMapper = session.getMapper(SingerMapper.class);
 
-      // Read staleness only works with autoCommit = true
-      session.getConnection().setAutoCommit(true);
-      // Accepts data that is at most 10 seconds old
-      transactionMapper.set10SecondsReadStaleness();
+      transactionMapper.setReadOnly();
       final List<Singer> singers = singerMapper.findAll();
       final Timestamp readTimestamp = transactionMapper.getReadTimestamp();
 
@@ -55,11 +51,11 @@ public class StaleReadOnlyTransactionExample {
   }
 
   /**
-   * Executes a stale read (max staleness configured as 10 seconds).
-   * Uses a JDBC {@link Connection} to set read only transaction mode.
-   * Prints out the read timestamp used.
+   * Executes a read only transaction. Uses a JDBC {@link Connection} to set read only transaction
+   * mode. Prints out the read timestamp used.
    */
-  public static void runWithJdbcConnection(SqlSessionFactory sqlSessionFactory) throws SQLException {
+  public static void runWithJdbcConnection(SqlSessionFactory sqlSessionFactory)
+      throws SQLException {
     try (
         SqlSession session = sqlSessionFactory.openSession();
         Connection connection = session.getConnection();
@@ -67,12 +63,8 @@ public class StaleReadOnlyTransactionExample {
     ) {
       final SingerMapper singerMapper = session.getMapper(SingerMapper.class);
 
-      // Read staleness only works with autoCommit = true
-      connection.setAutoCommit(true);
-      // Accepts data that is at most 10 seconds old
-      statement.execute("SET READ_ONLY_STALENESS = 'MAX_STALENESS 10s'");
+      statement.execute("SET TRANSACTION READ ONLY");
       final List<Singer> singers = singerMapper.findAll();
-
       try (ResultSet rs = statement.executeQuery("SHOW VARIABLE READ_TIMESTAMP")) {
         if (!rs.next()) throw new IllegalStateException("Could not retrieve read timestamp");
 

@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.google.sample;
+package com.google.sample.annotation;
 
 import java.util.Properties;
 import javax.sql.DataSource;
 import org.apache.ibatis.datasource.DataSourceFactory;
 import org.apache.ibatis.datasource.pooled.PooledDataSource;
 
-public class SampleDataSourceFactory implements DataSourceFactory {
+class SampleDataSourceFactory implements DataSourceFactory {
 
   private final String driver;
   private final String url;
