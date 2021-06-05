@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.google.sample.xml.mappers.SingerMapper">
+  <select id="selectSingers" resultType="com.google.sample.models.Singer">
+    SELECT SingerId, FirstName, LastName from Singers WHERE TRUE
+  </select>
+
+  <insert id="insertSinger" parameterType="com.google.sample.models.Singer">
+    INSERT INTO Singers (SingerId, FirstName, LastName) VALUES (#{SingerId}, #{FirstName}, #{LastName})
+  </insert>
+</mapper>

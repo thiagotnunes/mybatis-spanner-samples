@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.google.sample.xml.mappers.TransactionMapper">
+  <select id="setReadOnly">
+    SET TRANSACTION READ ONLY
+  </select>
+
+  <select id="set10SecondsReadStaleness">
+    SET READ_ONLY_STALENESS = 'MAX_STALENESS 10s'
+  </select>
+
+  <select id="setReadWrite">
+    SET TRANSACTION READ WRITE
+  </select>
+
+  <select id="getReadTimestamp" resultType="java.sql.Timestamp">
+    SHOW VARIABLE READ_TIMESTAMP
+  </select>
+
+  <select id="getCommitTimestamp" resultType="java.sql.Timestamp">
+    SHOW VARIABLE COMMIT_TIMESTAMP
+  </select>
+</mapper>
