@@ -32,12 +32,12 @@ public class ReadWriteTransactionExample {
     try (SqlSession session = sqlSessionFactory.openSession()) {
       final Singer singer = new Singer(10_004L, "TestFirstName", "TestLastName");
 
-      session.selectOne("com.google.sample.xml.mappers.TransactionMapper.setReadWrite");
-      final int updateCount = session.insert("com.google.sample.xml.mappers.SingerMapper.insertSinger", singer);
+      session.selectOne("TransactionMapper.setReadWrite");
+      final int updateCount = session.insert("SingerMapper.insertSinger", singer);
       session.commit();
 
       final Timestamp commitTimestamp = session
-          .selectOne("com.google.sample.xml.mappers.TransactionMapper.getCommitTimestamp");
+          .selectOne("TransactionMapper.getCommitTimestamp");
 
       System.out.println("Inserted Singer " + 10_004L + " ("
               + "updateCount = " + updateCount + ", "

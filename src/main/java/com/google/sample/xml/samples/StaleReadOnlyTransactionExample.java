@@ -35,11 +35,11 @@ public class StaleReadOnlyTransactionExample {
       // Read staleness only works with autoCommit = true
       session.getConnection().setAutoCommit(true);
       // Accepts data that is at most 10 seconds old
-      session.selectOne("com.google.sample.xml.mappers.TransactionMapper.set10SecondsReadStaleness");
+      session.selectOne("TransactionMapper.set10SecondsReadStaleness");
       final List<Singer> singers = session
-          .selectList("com.google.sample.xml.mappers.SingerMapper.selectSingers");
+          .selectList("SingerMapper.selectSingers");
       final Timestamp readTimestamp = session
-          .selectOne("com.google.sample.xml.mappers.TransactionMapper.getReadTimestamp");
+          .selectOne("TransactionMapper.getReadTimestamp");
 
       System.out.println("Found " + singers.size() + " singers ("
           + "read timestamp = " + readTimestamp +

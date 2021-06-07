@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.google.sample.xml.mappers.TransactionMapper">
+<mapper namespace="TransactionMapper">
   <select id="setReadOnly">
     SET TRANSACTION READ ONLY
   </select>
@@ -15,11 +15,11 @@
     SET TRANSACTION READ WRITE
   </select>
 
-  <select id="getReadTimestamp" resultType="java.sql.Timestamp">
+  <select id="getReadTimestamp" resultType="Timestamp">
     SHOW VARIABLE READ_TIMESTAMP
   </select>
 
-  <select id="getCommitTimestamp" resultType="java.sql.Timestamp">
+  <select id="getCommitTimestamp" resultType="Timestamp">
     SHOW VARIABLE COMMIT_TIMESTAMP
   </select>
 </mapper>

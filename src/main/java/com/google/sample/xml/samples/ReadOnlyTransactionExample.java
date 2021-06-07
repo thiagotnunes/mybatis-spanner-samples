@@ -31,11 +31,11 @@ public class ReadOnlyTransactionExample {
   public static void run(SqlSessionFactory sqlSessionFactory) {
     try (SqlSession session = sqlSessionFactory.openSession()) {
 
-      session.selectOne("com.google.sample.xml.mappers.TransactionMapper.setReadOnly");
+      session.selectOne("TransactionMapper.setReadOnly");
       final List<Singer> singers = session
-          .selectList("com.google.sample.xml.mappers.SingerMapper.selectSingers");
+          .selectList("SingerMapper.selectSingers");
       final Timestamp readTimestamp = session
-          .selectOne("com.google.sample.xml.mappers.TransactionMapper.getReadTimestamp");
+          .selectOne("TransactionMapper.getReadTimestamp");
 
       System.out.println("Found " + singers.size() + " singers ("
           + "read timestamp = " + readTimestamp +
