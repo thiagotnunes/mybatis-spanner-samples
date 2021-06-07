@@ -34,9 +34,9 @@ import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 public class Main {
 
   // TODO: Replace these variables with your configuration
-  private static final String PROJECT = "appdev-soda-spanner-staging";
-  private static final String INSTANCE = "thiagotnunes-test-instance";
-  private static final String DATABASE = "example-db";
+  private static final String PROJECT = "project-id";
+  private static final String INSTANCE = "instance-id";
+  private static final String DATABASE = "database-id";
   private static final int MIN_SESSIONS = 400;
   private static final int MAX_SESSIONS = 800;
   private static final int NUM_CHANNELS = MAX_SESSIONS / 100; // There should be at most 100 sessions per channel
