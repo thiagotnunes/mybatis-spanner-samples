@@ -16,21 +16,18 @@
 
 package com.google.sample.models;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
-public class Singer {
+public class Album {
 
   private Long SingerId;
-  private String FirstName;
-  private String LastName;
-  private List<Album> Albums;
+  private Long AlbumId;
+  private String AlbumTitle;
 
-  public Singer(Long singerId, String firstName, String lastName) {
-    this.SingerId = singerId;
-    this.FirstName = firstName;
-    this.LastName = lastName;
+  public Album(Long singerId, Long albumId, String albumTitle) {
+    SingerId = singerId;
+    AlbumId = albumId;
+    AlbumTitle = albumTitle;
   }
 
   @Override
@@ -38,28 +35,26 @@ public class Singer {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof Singer)) {
+    if (!(o instanceof Album)) {
       return false;
     }
-    Singer singer = (Singer) o;
-    return Objects.equals(SingerId, singer.SingerId) &&
-        Objects.equals(FirstName, singer.FirstName) &&
-        Objects.equals(LastName, singer.LastName) &&
-        Objects.equals(Albums, singer.Albums);
+    Album album = (Album) o;
+    return Objects.equals(SingerId, album.SingerId) &&
+        Objects.equals(AlbumId, album.AlbumId) &&
+        Objects.equals(AlbumTitle, album.AlbumTitle);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(SingerId, FirstName, LastName, Albums);
+    return Objects.hash(SingerId, AlbumId, AlbumTitle);
   }
 
   @Override
   public String toString() {
-    return "Singer{" +
+    return "Album{" +
         "SingerId=" + SingerId +
-        ", FirstName='" + FirstName + '\'' +
-        ", LastName='" + LastName + '\'' +
-        ", Albums=" + Albums +
+        ", AlbumId=" + AlbumId +
+        ", AlbumTitle='" + AlbumTitle + '\'' +
         '}';
   }
 }

@@ -18,6 +18,7 @@ package com.google.sample.xml;
 
 
 import com.google.sample.xml.samples.ReadOnlyTransactionExample;
+import com.google.sample.xml.samples.NestedSelectExample;
 import com.google.sample.xml.samples.ReadWriteTransactionExample;
 import com.google.sample.xml.samples.StaleReadOnlyTransactionExample;
 import java.io.IOException;
@@ -47,6 +48,9 @@ public class Main {
         break;
       case "read-write":
         ReadWriteTransactionExample.run(sqlSessionFactory);
+        break;
+      case "nested-select":
+        NestedSelectExample.run(sqlSessionFactory);
         break;
       default:
         throw new IllegalArgumentException("Unknown example " + example);
