@@ -4,32 +4,48 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="SingerMapper">
   <resultMap id="albumResultMap" type="Album">
-    <id property="SingerId" column="SingerId" />
     <id property="AlbumId" column="AlbumId" />
     <result column="AlbumTitle" property="AlbumTitle" />
   </resultMap>
-  <resultMap id="singerResultMap" type="Singer">
+  <resultMap id="nestedSingerResultMap" type="Singer">
     <id property="SingerId" column="SingerId" />
     <result property="FirstName" column="FirstName" />
     <result property="LastName" column="LastName" />
     <collection property="Albums" column="SingerId" ofType="Album" select="selectAlbumsForSinger" />
   </resultMap>
+  <resultMap id="joinSingerResultMap" type="Singer">
+    <id property="SingerId" column="SingerId" />
+    <result property="FirstName" column="FirstName" />
+    <result property="LastName" column="LastName" />
+    <collection property="Albums" ofType="Album" resultMap="albumResultMap" />
+  </resultMap>
 
+  <!-- Simple select all example -->
   <select id="selectSingers" resultType="Singer">
     SELECT SingerId, FirstName, LastName FROM Singers WHERE TRUE
   </select>
 
+  <!-- Nested select (albums for each singer) example -->
   <select id="selectAlbumsForSinger" resultMap="albumResultMap">
     SELECT SingerId, AlbumId, AlbumTitle
     FROM Albums
     WHERE SingerId = #{SingerId}
   </select>
-  <select id="nestedSelectSingersAndAlbums" resultMap="singerResultMap">
+  <select id="nestedSelectSingersAndAlbums" resultMap="nestedSingerResultMap">
     SELECT SingerId, FirstName, LastName
     FROM Singers
     WHERE TRUE
   </select>
 
+  <!-- Inner join example -->
+  <select id="joinSelectSingersAndAlbums" resultMap="joinSingerResultMap">
+    SELECT s.SingerId, s.FirstName, s.LastName, a.AlbumId, a.AlbumTitle
+    FROM Singers s
+    INNER JOIN Albums a ON a.SingerId = s.SingerId
+    WHERE TRUE
+  </select>
+
+  <!-- Insert example -->
   <insert id="insertSinger" parameterType="Singer">
     INSERT INTO Singers (SingerId, FirstName, LastName) VALUES (#{SingerId}, #{FirstName}, #{LastName})
   </insert>

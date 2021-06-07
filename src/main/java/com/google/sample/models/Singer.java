@@ -16,7 +16,6 @@
 
 package com.google.sample.models;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -27,10 +26,20 @@ public class Singer {
   private String LastName;
   private List<Album> Albums;
 
-  public Singer(Long singerId, String firstName, String lastName) {
-    this.SingerId = singerId;
-    this.FirstName = firstName;
-    this.LastName = lastName;
+  public void setSingerId(Long singerId) {
+    SingerId = singerId;
+  }
+
+  public void setFirstName(String firstName) {
+    FirstName = firstName;
+  }
+
+  public void setLastName(String lastName) {
+    LastName = lastName;
+  }
+
+  public void setAlbums(List<Album> albums) {
+    Albums = albums;
   }
 
   @Override

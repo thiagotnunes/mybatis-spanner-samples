@@ -17,6 +17,7 @@
 package com.google.sample.xml;
 
 
+import com.google.sample.xml.samples.JoinSelectExample;
 import com.google.sample.xml.samples.ReadOnlyTransactionExample;
 import com.google.sample.xml.samples.NestedSelectExample;
 import com.google.sample.xml.samples.ReadWriteTransactionExample;
@@ -51,6 +52,9 @@ public class Main {
         break;
       case "nested-select":
         NestedSelectExample.run(sqlSessionFactory);
+        break;
+      case "join-select":
+        JoinSelectExample.run(sqlSessionFactory);
         break;
       default:
         throw new IllegalArgumentException("Unknown example " + example);

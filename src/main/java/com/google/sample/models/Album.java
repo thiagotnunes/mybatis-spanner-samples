@@ -24,9 +24,15 @@ public class Album {
   private Long AlbumId;
   private String AlbumTitle;
 
-  public Album(Long singerId, Long albumId, String albumTitle) {
+  public void setSingerId(Long singerId) {
     SingerId = singerId;
+  }
+
+  public void setAlbumId(Long albumId) {
     AlbumId = albumId;
+  }
+
+  public void setAlbumTitle(String albumTitle) {
     AlbumTitle = albumTitle;
   }
 

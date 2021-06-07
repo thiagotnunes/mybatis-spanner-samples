@@ -17,36 +17,23 @@
 package com.google.sample.xml.samples;
 
 import com.google.sample.models.Singer;
-import java.sql.Timestamp;
-import java.util.Collections;
+import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
-public class ReadWriteTransactionExample {
+public class JoinSelectExample {
 
   /**
-   * Executes a read write transaction.
-   * Uses the xml TransactionMapper to set read write transaction mode.
-   * Prints out the update count and the commit timestamp used.
+   * Executes a join select.
    */
   public static void run(SqlSessionFactory sqlSessionFactory) {
     try (SqlSession session = sqlSessionFactory.openSession()) {
-      final Singer singer = new Singer();
-      singer.setSingerId(10_005L);
-      singer.setFirstName("TestFirstName");
-      singer.setLastName("TestLastName");
 
-      session.selectOne("TransactionMapper.setReadWrite");
-      final int updateCount = session.insert("SingerMapper.insertSinger", singer);
-      session.commit();
+      final List<Singer> singers = session
+          .selectList("SingerMapper.joinSelectSingersAndAlbums");
 
-      final Timestamp commitTimestamp = session
-          .selectOne("TransactionMapper.getCommitTimestamp");
-
-      System.out.println("Inserted Singer " + 10_004L + " ("
-              + "updateCount = " + updateCount + ", "
-              + "commitTimestamp = " + commitTimestamp +
-          ")");
+      System.out.println("Found " + singers.size() + " singers");
+      singers.forEach(singer -> System.out.println("\t" + singer));
     }
   }
 }
