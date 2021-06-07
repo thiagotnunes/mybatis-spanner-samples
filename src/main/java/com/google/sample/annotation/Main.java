@@ -18,6 +18,7 @@ package com.google.sample.annotation;
 
 import com.google.sample.annotation.mappers.SingerMapper;
 import com.google.sample.annotation.mappers.TransactionMapper;
+import com.google.sample.annotation.samples.NestedSelectExample;
 import com.google.sample.annotation.samples.ReadOnlyTransactionExample;
 import com.google.sample.annotation.samples.ReadWriteTransactionExample;
 import com.google.sample.annotation.samples.StaleReadOnlyTransactionExample;
@@ -33,9 +34,9 @@ import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 public class Main {
 
   // TODO: Replace these variables with your configuration
-  private static final String PROJECT = "project-id";
-  private static final String INSTANCE = "instance-id";
-  private static final String DATABASE = "database-id";
+  private static final String PROJECT = "appdev-soda-spanner-staging";
+  private static final String INSTANCE = "thiagotnunes-test-instance";
+  private static final String DATABASE = "example-db";
   private static final int MIN_SESSIONS = 400;
   private static final int MAX_SESSIONS = 800;
   private static final int NUM_CHANNELS = MAX_SESSIONS / 100; // There should be at most 100 sessions per channel
@@ -80,6 +81,9 @@ public class Main {
         break;
       case "read-write-jdbc":
         ReadWriteTransactionExample.runWithJdbcConnection(sqlSessionFactory);
+        break;
+      case "nested-select":
+        NestedSelectExample.run(sqlSessionFactory);
         break;
       default:
         throw new IllegalArgumentException("Unknown example " + example);
